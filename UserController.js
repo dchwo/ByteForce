@@ -58,7 +58,7 @@ class CreateUserPage {
 
 class CreateUserController {
   constructor() {
-    this.userEntity = new User(null, null);
+    this.userEntity = new User(null, null, null);
   }
 
   // Boolean function to create user
