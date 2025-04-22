@@ -24,9 +24,11 @@ class CreateUserPage {
       
       const userId = document.getElementById('userId').value;
       const password = document.getElementById('password').value;
+      const email = document.getElementById('email').value;
+      
       
       // Call the controller to create user
-      const success = this.createUser(userId, password);
+      const success = this.createUser(userId, password, email);
       
       // Show appropriate message
       if (success) {
@@ -39,8 +41,8 @@ class CreateUserPage {
   }
 
   // Create user via controller
-  createUser(userId, password) {
-    return this.controller.createUser(userId, password);
+  createUser(userId, password,email) {
+    return this.controller.createUser(userId, password,email);
   }
 
   // Show a message in the message container
@@ -64,7 +66,7 @@ class CreateUserController {
   // Boolean function to create user
   createUser(userId, password, email) {
     // Basic validation
-    if (!userId || !password) {
+    if (!userId || !password || !email) {
       return false;
     }
     
@@ -87,17 +89,19 @@ class CreateUserController {
 // Entity class (E) for managing user data and persistence
 
 class User {
-  constructor(userId = null, password = null) {
+  constructor(userId = null, password = null, email= null) {
     this.userId = userId;
     this.password = password;
+    this.email = email;
     this.userStore = this.getUserStore(); 
   }
 
   // Create a new user in the system
-  createUser(userId, password) {
+  createUser(userId, password, email) {
     // Set the properties on this instance
     this.userId = userId;
     this.password = this.hashPassword(password); // Store hashed password for security
+    this.email = email;
     
     try {
       // Check if user already exists
@@ -110,6 +114,7 @@ class User {
       const user = {
         userId: this.userId,
         password: this.password,
+        email: this.email,
         createdAt: new Date().toISOString()
       };
       
