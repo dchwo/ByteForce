@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Available Services</title>
+    <link rel="stylesheet" href="{{ url_for('viewListingPage.static', filename='styles.css') }}">
+</head>
+<body>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>Welcome, {{ first_name }}</h2>
+        <a href="{{ url_for('userLogoutPage.logout') }}">Logout</a>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <p style="color: green;">{{ message }}</p>
+      {% endfor %}
+    {% endwith %}
+
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        {% if request.args.get('shortlisted') %}
+            <h2>Your Shortlisted Services</h2>
+        {% else %}
+            <h2>All Available Services</h2>
+        {% endif %}
+    </div>
+
+    <form method="GET" action="{{ url_for('searchListingPage.searchListing') }}">
+        {% if request.args.get('shortlisted') %}
+            <input type="hidden" name="shortlisted" value="1">
+        {% endif %}
+        <div class="form-group">
+            <label>Cleaner Name:</label>
+            <input type="text" name="name" value="{{ request.args.get('name', '') }}">
+        </div>
+        <div class="form-group">
+            <label>Cleaner Email:</label>
+            <input type="text" name="email" value="{{ request.args.get('email', '') }}">
+        </div>
+        <div class="form-group">
+            <label>Service Name:</label>
+            <input type="text" name="service_name" value="{{ request.args.get('service_name', '') }}">
+        </div>
+        <div class="form-group">
+            <label>Price Range:</label>
+            <input type="number" step="0.01" name="min_price" placeholder="Min" value="{{ request.args.get('min_price', '') }}">
+            <input type="number" step="0.01" name="max_price" placeholder="Max" value="{{ request.args.get('max_price', '') }}">
+        </div>
+        <div class="form-group">
+            <label>Type:</label>
+            <select name="type" class="form-control">
+                <option value="">-- All Types --</option>
+                <option value="Office" {% if request.args.get('type') == 'Office' %}selected{% endif %}>Office</option>
+                <option value="HDB" {% if request.args.get('type') == 'HDB' %}selected{% endif %}>HDB</option>
+                <option value="Condo" {% if request.args.get('type') == 'Condo' %}selected{% endif %}>Condo</option>
+                <option value="Landed" {% if request.args.get('type') == 'Landed' %}selected{% endif %}>Landed</option>
+            </select>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <button type="submit">Search</button>
+                <a href="{{ url_for('searchListingPage.searchListing') }}"><button type="button">Reset</button></a>
+            </div>
+            <div>
+                {% if request.args.get('shortlisted') %}
+                    <a href="{{ url_for('searchListingPage.searchListing') }}">Show All Services</a>
+                {% else %}
+                    <a href="{{ url_for('searchListingPage.searchListing', shortlisted=1) }}">Show Shortlisted Services</a>
+                {% endif %}
+            </div>
+        </div>
+    </form>
+
+    {% if services %}
+    <table>
+        <thead>
+            <tr>
+                <th>Cleaner Name</th>
+<!--
+                <th>Email</th>
+-->
+                <th>Service</th>
+                <th>Type</th>
+<!--
+                <th>Description</th>
+                <th>Total Views</th>
+-->
+                <th>Price</th>
+                <th>Details</th>
+                <th>Shortlisted</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for s in services %}
+            <tr>
+                <td>{{ s.first_name }} {{ s.last_name }}</td>
+<!--
+                <td>{{ s.email }}</td>
+-->                
+                <td>{{ s.service_name }}</td>
+                <td>{{ s.type }}</td>
+<!--
+                <td>{{ s.description }}</td>
+                <td>{{ s.total_views }}</td>
+-->
+                <td>${{ s.price }}</td>
+                <td>
+                    <a href="{{ url_for('viewListingPage.viewListing', id=s.id) }}">
+                        <button type="button">View</button>
+                    </a>
+                </td>                
+                <td>
+                    <form method="POST" action="{% if request.args.get('shortlisted') %}{{ url_for('toggleShortlistPage.toggleShortlist', listing_id=s.id) }}?shortlisted=1{% else %}{{ url_for('toggleShortlistPage.toggleShortlist', listing_id=s.id) }}{% endif %}">
+                        <button type="submit">
+                            {% if s.id in shortlisted_ids %}Remove{% else %}Add{% endif %}
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No matching services found.</p>
+    {% endif %}
+</body>
+</html>

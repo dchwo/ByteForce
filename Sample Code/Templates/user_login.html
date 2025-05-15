@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('userLoginPage.static', filename='styles.css') }}">
+</head>
+<body>
+    <h2>User Login</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, msg in messages %}
+        <p style="color:red;">{{ msg }}</p>
+      {% endfor %}
+    {% endwith %}
+
+    <form method="POST">
+        <div class="form-group">
+            <label>Role:</label>
+            <select name="role" class="form-control">
+                <option value="cleaner" {% if request.args.get('role') == 'cleaner' %}selected{% endif %}>Cleaner</option>
+                <option value="homeowner" {% if request.args.get('role') == 'homeowner' %}selected{% endif %}>Home Owner</option>
+                <option value="admin" {% if request.args.get('role') == 'admin' %}selected{% endif %}>Admin</option>
+                <option value="platformmanager" {% if request.args.get('role') == 'platformmanager' %}selected{% endif %}>Platform Manager</option>
+            </select>
+        </div>        
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label>Password:</label>
+            <input type="password" name="password" required value="password">
+        </div>        
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>
