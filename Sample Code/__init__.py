@@ -4,6 +4,7 @@ from flask import Flask
 from csit314.boundary.cleaner.searchCleanerListingPage import searchCleanerListingPage
 from csit314.boundary.cleaner.updateCleanerListingPage import updateCleanerListingPage
 from csit314.boundary.cleaner.createCleanerListingPage import createCleanerListingPage
+from csit314.boundary.cleaner.viewCleanerListingPage import viewCleanerListingPage
 from csit314.boundary.cleaner.deleteCleanerListingPage import deleteCleanerListingPage
 from csit314.boundary.cleaner.viewServiceHistoryPage import viewServiceHistoryPage
 from csit314.boundary.cleaner.searchServiceHistoryPage import searchServiceHistoryPage
@@ -60,6 +61,7 @@ def create_app():
     app.register_blueprint(searchCleanerListingPage)
     app.register_blueprint(updateCleanerListingPage)
     app.register_blueprint(createCleanerListingPage)
+    app.register_blueprint(viewCleanerListingPage)
     app.register_blueprint(deleteCleanerListingPage)
     app.register_blueprint(viewServiceHistoryPage)
     app.register_blueprint(searchServiceHistoryPage)
