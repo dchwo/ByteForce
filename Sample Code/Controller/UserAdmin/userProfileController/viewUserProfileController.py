@@ -1,4 +1,4 @@
-from csit314.entity.UserProfile import UserProfile
+from csit314.entity.userProfile import UserProfile
 
 class ViewUserProfileController:
     def __init__(self):
