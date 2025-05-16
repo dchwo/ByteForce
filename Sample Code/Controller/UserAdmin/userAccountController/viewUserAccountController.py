@@ -1,4 +1,4 @@
-from csit314.entity.UserAccount import UserAccount
+from csit314.entity.userAccount import UserAccount
 
 class ViewUserAccountController:
     def __init__(self):
