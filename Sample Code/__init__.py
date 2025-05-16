@@ -7,6 +7,8 @@ from csit314.boundary.cleaner.createCleanerListingPage import createCleanerListi
 from csit314.boundary.cleaner.deleteCleanerListingPage import deleteCleanerListingPage
 from csit314.boundary.cleaner.viewServiceHistoryPage import viewServiceHistoryPage
 from csit314.boundary.cleaner.searchServiceHistoryPage import searchServiceHistoryPage
+from csit314.boundary.cleaner.viewListingViewsPage import viewListingViewsPage
+from csit314.boundary.cleaner.viewListingShortlistsPage import viewListingShortlistsPage
 
 # Home Owner
 from csit314.boundary.homeowner.viewListingPage     import viewListingPage
@@ -59,6 +61,8 @@ def create_app():
     app.register_blueprint(deleteCleanerListingPage)
     app.register_blueprint(viewServiceHistoryPage)
     app.register_blueprint(searchServiceHistoryPage)
+    app.register_blueprint(viewListingViewsPage)
+    app.register_blueprint(viewListingShortlistsPage)
 
     # User Account
     app.register_blueprint(userLoginPage)
