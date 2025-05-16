@@ -34,7 +34,7 @@ class UserAccount:
             sql = """   
             INSERT INTO users
             (first_name, last_name, email, role, password, sex, birth_date) 
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
             """
 
             self.cursor.execute(sql, (
