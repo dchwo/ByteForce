@@ -28,11 +28,11 @@ from csit314.boundary.platformmanager.suspendServiceCategoryPage import suspendS
 from csit314.boundary.platformmanager.searchServiceCategoryPage import searchServiceCategoryPage
 
 # User Admin - User Accounts
-from csit314.boundary.useradmin.searchUserAccountPage import searchUserAccountPage
+from csit314.boundary.useradmin.createUserAccountPage import createUserAccountPage
 from csit314.boundary.useradmin.viewUserAccountPage import viewUserAccountPage
-from csit314.boundary.useradmin.viewAllUserAccountsPage import viewAllUserAccountsPage
 from csit314.boundary.useradmin.updateUserAccountPage import updateUserAccountPage
 from csit314.boundary.useradmin.suspendUserAccountPage import suspendUserAccountPage
+from csit314.boundary.useradmin.searchUserAccountPage import searchUserAccountPage
 
 # User Admin - User Profile
 from csit314.boundary.useradmin.searchUserProfilePage import searchUserProfilePage
@@ -73,11 +73,11 @@ def create_app():
     app.register_blueprint(searchServiceCategoryPage)
 
     #User Admin - User Account
-    app.register_blueprint(searchUserAccountPage)
+    app.register_blueprint(createUserAccountPage)
     app.register_blueprint(viewUserAccountPage)
-    app.register_blueprint(viewAllUserAccountsPage)
     app.register_blueprint(updateUserAccountPage)
     app.register_blueprint(suspendUserAccountPage)
+    app.register_blueprint(searchUserAccountPage)
 
     # User Admin - User Profile
     app.register_blueprint(searchUserProfilePage)
