@@ -35,11 +35,11 @@ from csit314.boundary.useradmin.suspendUserAccountPage import suspendUserAccount
 from csit314.boundary.useradmin.searchUserAccountPage import searchUserAccountPage
 
 # User Admin - User Profile
-from csit314.boundary.useradmin.searchUserProfilePage import searchUserProfilePage
+from csit314.boundary.useradmin.createUserProfilePage import createUserProfilePage
 from csit314.boundary.useradmin.viewUserProfilePage import viewUserProfilePage
-from csit314.boundary.useradmin.viewAllUserProfilesPage import viewAllUserProfilesPage
 from csit314.boundary.useradmin.updateUserProfilePage import updateUserProfilePage
 from csit314.boundary.useradmin.suspendUserProfilePage import suspendUserProfilePage
+from csit314.boundary.useradmin.searchUserProfilePage import searchUserProfilePage
 
 def create_app():
     app = Flask(__name__)
@@ -80,9 +80,9 @@ def create_app():
     app.register_blueprint(searchUserAccountPage)
 
     # User Admin - User Profile
-    app.register_blueprint(searchUserProfilePage)
+    app.register_blueprint(createUserProfilePage)
     app.register_blueprint(viewUserProfilePage)
-    app.register_blueprint(viewAllUserProfilesPage)
     app.register_blueprint(updateUserProfilePage)
     app.register_blueprint(suspendUserProfilePage)
+    app.register_blueprint(searchUserProfilePage)
     return app
