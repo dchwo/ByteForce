@@ -15,7 +15,7 @@ class UserAccount:
         
         # Check if the email already exists
         checkQuery = "SELECT email FROM users u WHERE email = %s"
-        self.cursor.execute(checkQuery, (email, role))
+        self.cursor.execute(checkQuery, (email,))
         existingUser = self.cursor.fetchone()
 
         if existingUser:
@@ -73,14 +73,14 @@ class UserAccount:
     def suspendUser(self, id):
         # Check current status
         check_sql = "SELECT status FROM users WHERE id = %s"
-        self.cursor.execute(check_sql, (id))
+        self.cursor.execute(check_sql, (id,))
         result = self.cursor.fetchone()
 
         #Assuming user is always found
         if result.get('status') == 'active':
             # If status is 'active', set to 'inactive'
             update_sql = "UPDATE users SET status = 'inactive' WHERE id = %s"
-            self.cursor.execute(update_sql, (id))
+            self.cursor.execute(update_sql, (id,))
             self.conn.commit()
             return True
         
