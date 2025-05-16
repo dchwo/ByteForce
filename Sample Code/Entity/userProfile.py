@@ -19,18 +19,13 @@ class UserProfile:
         sql = "SELECT * FROM user_profiles WHERE user_id=%s"
         self.cursor.execute(sql, (user_id,))
         return self.cursor.fetchone()
-    
-    def get_all_profiles(self):
-        """Get all user profiles"""
+
+    def add(self, role, description):
+        """Create a new user profile"""
+        sql = "INSERT INTO user_profiles (role, description, status) VALUES (%s, %s, 'active')"
+        self.cursor.execute(sql, (role, description))
         self.conn.commit()
-        sql = """
-            SELECT p.*, u.first_name, u.last_name, u.email, u.role, u.status
-            FROM user_profiles p
-            JOIN users u ON p.user_id = u.user_id
-            ORDER BY u.role, u.first_name, u.last_name
-        """
-        self.cursor.execute(sql)
-        return self.cursor.fetchall()
+        return self.cursor.lastrowid
     
     def search_profiles(self, search_term=None, role=None, status=None):
         """Search for user profiles"""
