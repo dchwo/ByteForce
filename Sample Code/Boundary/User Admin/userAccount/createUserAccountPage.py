@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, session, flash
-from controller.useradmin.createUserAccountController import CreateUserAccountController
+from csit314.controller.useradmin.createUserAccountController import CreateUserAccountController
 
 createUserAccountPage = Blueprint('createUserAccountPage', __name__, template_folder='../templates', static_folder='../static')
 createUserAccountController = CreateUserAccountController()
