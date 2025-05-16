@@ -27,6 +27,20 @@ from csit314.boundary.platformmanager.deleteServiceCategoryPage import deleteSer
 from csit314.boundary.platformmanager.suspendServiceCategoryPage import suspendServiceCategoryPage
 from csit314.boundary.platformmanager.searchServiceCategoryPage import searchServiceCategoryPage
 
+# User Admin - User Accounts
+from csit314.boundary.useradmin.searchUserAccountPage import searchUserAccountPage
+from csit314.boundary.useradmin.viewUserAccountPage import viewUserAccountPage
+from csit314.boundary.useradmin.viewAllUserAccountsPage import viewAllUserAccountsPage
+from csit314.boundary.useradmin.updateUserAccountPage import updateUserAccountPage
+from csit314.boundary.useradmin.suspendUserAccountPage import suspendUserAccountPage
+
+# User Admin - User Profile
+from csit314.boundary.useradmin.searchUserProfilePage import searchUserProfilePage
+from csit314.boundary.useradmin.viewUserProfilePage import viewUserProfilePage
+from csit314.boundary.useradmin.viewAllUserProfilesPage import viewAllUserProfilesPage
+from csit314.boundary.useradmin.updateUserProfilePage import updateUserProfilePage
+from csit314.boundary.useradmin.suspendUserProfilePage import suspendUserProfilePage
+
 def create_app():
     app = Flask(__name__)
     app.secret_key = 'supersecret'  # Replace with a strong secret key
@@ -57,4 +71,18 @@ def create_app():
     app.register_blueprint(deleteServiceCategoryPage)
     app.register_blueprint(suspendServiceCategoryPage)
     app.register_blueprint(searchServiceCategoryPage)
+
+    #User Admin - User Account
+    app.register_blueprint(searchUserAccountPage)
+    app.register_blueprint(viewUserAccountPage)
+    app.register_blueprint(viewAllUserAccountsPage)
+    app.register_blueprint(updateUserAccountPage)
+    app.register_blueprint(suspendUserAccountPage)
+
+    # User Admin - User Profile
+    app.register_blueprint(searchUserProfilePage)
+    app.register_blueprint(viewUserProfilePage)
+    app.register_blueprint(viewAllUserProfilesPage)
+    app.register_blueprint(updateUserProfilePage)
+    app.register_blueprint(suspendUserProfilePage)
     return app
