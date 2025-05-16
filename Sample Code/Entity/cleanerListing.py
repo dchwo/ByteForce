@@ -101,4 +101,26 @@ class CleanerListing:
             "first_name": row["first_name"],
             "last_name": row["last_name"],
             "email": row["email"]
-        } for row in results]     
+        } for row in results]    
+
+    def get_listing_views_by_id(self, listing_id, user_id):
+        """Get view stats for a specific listing"""
+        self.conn.commit()  # Refresh from latest committed data
+        sql = """
+            SELECT id, service_name, price, type, description, total_views
+            FROM service_listings
+            WHERE id = %s AND user_id = %s
+        """
+        self.cursor.execute(sql, (listing_id, user_id))
+        return self.cursor.fetchone()
+
+    def get_listing_shortlists_by_id(self, listing_id, user_id):
+        """Get shortlist stats for a specific listing"""
+        self.conn.commit()  # Refresh from latest committed data
+        sql = """
+            SELECT id, service_name, price, type, description, shortlisted
+            FROM service_listings
+            WHERE id = %s AND user_id = %s
+        """
+        self.cursor.execute(sql, (listing_id, user_id))
+        return self.cursor.fetchone()
