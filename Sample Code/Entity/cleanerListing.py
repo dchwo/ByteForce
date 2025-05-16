@@ -70,10 +70,10 @@ class CleanerListing:
         values = []
 
         if name:
-            query += " AND (c.first_name LIKE %s OR c.last_name LIKE %s)"
+            query += " AND (u.first_name LIKE %s OR u.last_name LIKE %s)"
             filters.extend([f"%{name}%", f"%{name}%"])
         if email:
-            query += " AND c.email LIKE %s"
+            query += " AND u.email LIKE %s"
             filters.append(f"%{email}%")
         if service_name:
             query += " AND s.service_name LIKE %s"
