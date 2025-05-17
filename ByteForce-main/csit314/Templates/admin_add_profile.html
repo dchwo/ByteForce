@@ -17,4 +17,10 @@
         <button type="submit">Create Profile</button>
     </form>
     <a href="{{ url_for('viewUserProfilePage.viewAllUserProfiles') }}">Back to Profiles</a>
+
+    <div class="action-buttons" style="margin-top: 20px;">
+        <a href="{{ url_for('userLoginPage.login') }}">
+            <button type="button">Back to Dashboard</button>
+        </a>
+    </div>
 {% endblock %}
