@@ -4,5 +4,5 @@ class SuspendUserProfileController:
     def __init__(self):
         self.entity = UserProfile()
 
-    def SuspendUserProfile(self, id):
-        return self.entity.suspend(id)
+    def toggle_profile_status(self, id):
+        return self.entity.toggle_profile_status(id)
