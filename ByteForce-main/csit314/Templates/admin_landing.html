@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block header %}Admin Dashboard{% endblock %}
+
+{% block content %}
+    <div class="admin-dashboard">
+        <div class="dashboard-section">
+            <h3>User Account Management</h3>
+            <div class="dashboard-actions">
+                <a href="{{ url_for('createUserAccountPage.createUserAccount') }}">
+                    <button type="button">Add New User</button>
+                </a>
+                <a href="{{ url_for('searchUserAccountPage.searchUserAccounts') }}">
+                    <button type="button">Search Users</button>
+                </a>
+            </div>
+            <p>Manage user accounts including creating, updating, and suspending user access to the platform.</p>
+        </div>
+
+        <div class="dashboard-section">
+            <h3>User Profile Management</h3>
+            <div class="dashboard-actions">
+                <a href="{{ url_for('createUserProfilePage.createUserProfile') }}">
+                    <button type="button">Add New Profile</button>
+                </a>
+                <a href="{{ url_for('searchUserProfilePage.searchUserProfiles') }}">
+                    <button type="button">Search Profiles</button>
+                </a>
+            </div>
+            <p>Manage user profiles and role definitions for different types of platform users.</p>
+        </div>
+    </div>
+
+    <style>
+        .admin-dashboard {
+            margin-top: 20px;
+        }
+        .dashboard-section {
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .dashboard-actions {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .dashboard-section h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+    </style>
+{% endblock %}
