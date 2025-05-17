@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+
+{% block title %}Platform Manager Dashboard{% endblock %}
+
+{% block header %}Platform Manager Dashboard{% endblock %}
+
+{% block content %}
+    <div class="dashboard">
+        <div class="dashboard-section">
+            <h3>Service Category Management</h3>
+            <div class="dashboard-actions">
+                <a href="{{ url_for('createServiceCategoryPage.createServiceCategory') }}">
+                    <button type="button">Add New Category</button>
+                </a>
+                <a href="{{ url_for('viewServiceCategoryPage.viewAllCategories') }}">
+                    <button type="button">View All Categories</button>
+                </a>
+                <a href="{{ url_for('searchServiceCategoryPage.searchServiceCategory') }}">
+                    <button type="button">Search Categories</button>
+                </a>
+            </div>
+            <p>Manage service categories available to cleaners for listing their services.</p>
+        </div>
+
+        <div class="dashboard-stats">
+            <h3>Platform Overview</h3>
+            <div class="stats-cards">
+                <div class="stat-card">
+                    <h4>Active Categories</h4>
+                    <p class="stat-value">{{ active_categories|default('--') }}</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Suspended Categories</h4>
+                    <p class="stat-value">{{ suspended_categories|default('--') }}</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Total Categories</h4>
+                    <p class="stat-value">{{ total_categories|default('--') }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .dashboard {
+            margin-top: 20px;
+        }
+        .dashboard-section {
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .dashboard-actions {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        .dashboard-section h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .stats-cards {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        .stat-card {
+            background-color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            flex: 1;
+            text-align: center;
+        }
+        .stat-card h4 {
+            margin-top: 0;
+            color: #7f8c8d;
+            font-size: 16px;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2980b9;
+            margin: 10px 0 0;
+        }
+    </style>
+{% endblock %}
