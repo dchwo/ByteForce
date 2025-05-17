@@ -49,4 +49,10 @@
     {% else %}
         <p>No profiles found.</p>
     {% endif %}
+    
+    <div class="action-buttons" style="margin-top: 20px;">
+        <a href="{{ url_for('userLoginPage.login') }}">
+            <button type="button">Back to Dashboard</button>
+        </a>
+    </div>
 {% endblock %}
