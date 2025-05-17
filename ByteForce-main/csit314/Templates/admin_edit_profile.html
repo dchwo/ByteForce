@@ -21,4 +21,10 @@
         <button type="submit">Update Profile</button>
     </form>
     <a href="{{ url_for('viewUserProfilePage.viewUserProfile', id=profile.profile_id) }}">Cancel</a>
+    
+    <div class="action-buttons" style="margin-top: 20px;">
+        <a href="{{ url_for('userLoginPage.login') }}">
+            <button type="button">Back to Dashboard</button>
+        </a>
+    </div>
 {% endblock %}
