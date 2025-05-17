@@ -94,35 +94,29 @@ class UserAccount:
     def searchUser(self, id=None, first_name=None, last_name=None, email=None, role=None):
         self.conn.commit()
         query = """
-            SELECT id, first_name, last_name, email, role
+            SELECT user_id as id, first_name, last_name, email, role, status
             FROM users 
             WHERE 1=1
         """
-        filters = []
-        values = []
+        params = []
+        
         if id:
-            query += " AND id = %s"
-            filters.append("id")
+            query += " AND user_id = %s"
+            params.append(id)
         if first_name:
             query += " AND first_name LIKE %s"
-            filters.append(f"%{first_name}%")
+            params.append(f"%{first_name}%")
         if last_name:
             query += " AND last_name LIKE %s"
-            filters.append(f"%{last_name}%")
+            params.append(f"%{last_name}%")
         if email:
             query += " AND email LIKE %s"
-            filters.append(f"%{email}%")
+            params.append(f"%{email}%")
         if role:
-            query += " AND role LIKE %s"
-            filters.append(f"%{role}%")
-
-        self.cursor.execute(query, filters)
-        results = self.cursor.fetchall()
-
-        return [{
-            "id": row["id"],
-            "first_name": row["first_name"],
-            "last_name": row["last_name"],
-            "email": row["email"],
-            "role": row["role"]
-        } for row in results]
+            query += " AND role = %s"
+            params.append(role)
+            
+        query += " ORDER BY role, first_name, last_name"
+        
+        self.cursor.execute(query, params)
+        return self.cursor.fetchall()
