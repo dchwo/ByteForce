@@ -27,8 +27,19 @@ def login():
                 # TODO change redirect below
                 return  render_template('admin_landing.html')
             elif role == "platformmanager":
-                # TODO change redirect below
-                return  render_template('platform_manager_landing.html')
+                # Import the controller - add this import at the top of the file
+                from csit314.controller.platformmanager.viewServiceCategoryController import ViewServiceCategoryController
+                
+                # Get category statistics
+                service_category_controller = ViewServiceCategoryController()
+                all_categories = service_category_controller.getAllCategories()
+                active_categories = sum(1 for c in all_categories if c['status'] == 'active')
+                suspended_categories = sum(1 for c in all_categories if c['status'] == 'inactive')
+                
+                return render_template('platform_manager_landing.html', 
+                                       active_categories=active_categories,
+                                       suspended_categories=suspended_categories,
+                                       total_categories=len(all_categories))
             else:
                 flash("Invalid role specified", "danger")
                 return redirect(url_for('userLoginPage.login'))
