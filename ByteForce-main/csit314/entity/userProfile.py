@@ -34,9 +34,39 @@ class UserProfile:
         self.conn.commit()
         return self.cursor.lastrowid
     
-    def search_profiles(self, search_term=None):
+    def search_profiles(self, id=None, bio=None, first_name=None, last_name=None, email=None, role=None, status=None):
         """Search for user profiles"""
 
+        self.conn.commit()
+        query = """
+            SELECT p.bio, u.user_id, u.first_name, u.last_name, u.email, u.role, u.status
+            FROM users u
+            JOIN profiles p ON u.user_id = p.user_id
+            WHERE 1=1
+        """
+        params = []
+        
+        if id:
+            query += " AND user_id = %s"
+            params.append(id)
+        if first_name:
+            query += " AND first_name LIKE %s"
+            params.append(f"%{first_name}%")
+        if last_name:
+            query += " AND last_name LIKE %s"
+            params.append(f"%{last_name}%")
+        if email:
+            query += " AND email LIKE %s"
+            params.append(f"%{email}%")
+        if role:
+            query += " AND role = %s"
+            params.append(role)
+        if bio: 
+            query += " AND bio = %s"
+            
+        query += " ORDER BY role, id, first_name, last_name"
+        
+        self.cursor.execute(query, params)
         return self.cursor.fetchall()
     
     def update_profile(self, profile_id, role=None, description=None):
