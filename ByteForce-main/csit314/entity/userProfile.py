@@ -29,39 +29,14 @@ class UserProfile:
 
     def add(self, bio, avatar, status):
         """Create a new user profile"""
-        sql = "INSERT INTO user_profiles (role, description) VALUES (%s, %s, 'active')"
-        self.cursor.execute(sql, (role, description))
+        sql = "INSERT INTO user_profiles (bio, avatar, status) VALUES (%s, %s, 'active')"
+        self.cursor.execute(sql, (bio, avatar, status))
         self.conn.commit()
         return self.cursor.lastrowid
     
-    def search_profiles(self, search_term=None, role=None, status=None):
+    def search_profiles(self, search_term=None):
         """Search for user profiles"""
-        self.conn.commit()
-        
-        query = """
-            SELECT p.*, u.first_name, u.last_name, u.email, u.role, u.status
-            FROM user_profiles p
-            JOIN users u ON p.user_id = u.user_id
-            WHERE 1=1
-        """
-        params = []
-        
-        if search_term:
-            query += " AND (u.first_name LIKE %s OR u.last_name LIKE %s OR u.email LIKE %s)"
-            search_pattern = f"%{search_term}%"
-            params.extend([search_pattern, search_pattern, search_pattern, search_pattern])
-        
-        if role:
-            query += " AND u.role = %s"
-            params.append(role)
-        
-        if status:
-            query += " AND u.status = %s"
-            params.append(status)
-        
-        query += " ORDER BY u.role, u.first_name, u.last_name"
-        
-        self.cursor.execute(query, params)
+
         return self.cursor.fetchall()
     
     def update_profile(self, profile_id, role=None, description=None):
