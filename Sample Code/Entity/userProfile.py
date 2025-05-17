@@ -20,10 +20,10 @@ class UserProfile:
         self.cursor.execute(sql, (user_id,))
         return self.cursor.fetchone()
 
-    def add(self, role, description):
+    def add(self, bio, avatar, status):
         """Create a new user profile"""
-        sql = "INSERT INTO user_profiles (role, description, status) VALUES (%s, %s, 'active')"
-        self.cursor.execute(sql, (role, description))
+        sql = "INSERT INTO user_profiles (bio, avatar, status) VALUES (%s, %s, 'active')"
+        self.cursor.execute(sql, (bio, avatar, status))
         self.conn.commit()
         return self.cursor.lastrowid
     
