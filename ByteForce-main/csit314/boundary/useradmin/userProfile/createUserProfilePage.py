@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, session, flash
-from csit314.controller.useradmin.userProfileController.createUserProfileController import CreateUserAccountController
+from csit314.controller.useradmin.userProfileController.createUserProfileController import CreateUserProfileController 
 
 createUserProfilePage = Blueprint('createUserProfilePage', __name__, template_folder='../templates', static_folder='../static')
-createUserProfileController = CreateUserAccountController()
+createUserProfileController = CreateUserProfileController()  
 
 @createUserProfilePage.route('/admin/add_profile', methods=['GET', 'POST'])
 def createUserProfile():
