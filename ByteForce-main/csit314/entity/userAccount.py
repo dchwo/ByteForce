@@ -26,18 +26,9 @@ class UserAccount:
         existingUser = self.cursor.fetchone()
 
         if existingUser:
-            self.cursor.close()
             return False  # User already exists
-
+            
         else:
-             # Check if the role status is 'active'
-            roleStatusQuery = "SELECT status FROM profiles WHERE role = %s"
-            self.cursor.execute(roleStatusQuery, (role,))
-            roleStatus = self.cursor.fetchone()
-            if not roleStatus or roleStatus.get('status') != 'active':
-                self.cursor.close()
-                return False  # Role is not active
-
             sql = """   
             INSERT INTO users
             (first_name, last_name, email, role, password) 
