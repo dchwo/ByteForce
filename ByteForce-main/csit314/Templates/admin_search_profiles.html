@@ -54,4 +54,10 @@
     {% elif search_criteria and search_criteria|length > 0 %}
         <p>No profiles found matching your search criteria.</p>
     {% endif %}
+    
+    <div class="action-buttons" style="margin-top: 20px;">
+        <a href="{{ url_for('userLoginPage.login') }}">
+            <button type="button">Back to Dashboard</button>
+        </a>
+    </div>
 {% endblock %}
