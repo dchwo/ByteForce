@@ -15,12 +15,11 @@ def updateUserProfile(id):
     
     if request.method == 'POST':
         # Get form data
-        bio = request.form.get('bio')
-        avatar = request.form.get('avatar')
-        preferences = request.form.get('preferences')
+        role = request.form['role']
+        description = request.form['description']
         
         # Update profile
-        result = updateUserProfileController.UpdateUserProfile(id, bio, avatar, preferences)
+        result = updateUserProfileController.UpdateUserProfile(id, role, description)
         
         if result:
             flash("User profile updated successfully.", "success")
