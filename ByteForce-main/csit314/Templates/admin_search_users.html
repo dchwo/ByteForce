@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% block title %}Search User Accounts{% endblock %}
+
+{% block header %}Search User Accounts{% endblock %}
+
+{% block content %}
+    <form method="GET" action="{{ url_for('searchUserAccountPage.searchUserAccounts') }}">
+        <div class="form-group">
+            <label>User ID:</label>
+            <input type="text" name="id" value="{{ search_criteria.id or '' }}">
+        </div>
+        <div class="form-group">
+            <label>First Name:</label>
+            <input type="text" name="first_name" value="{{ search_criteria.first_name or '' }}">
+        </div>
+        <div class="form-group">
+            <label>Last Name:</label>
+            <input type="text" name="last_name" value="{{ search_criteria.last_name or '' }}">
+        </div>
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="text" name="email" value="{{ search_criteria.email or '' }}">
+        </div>
+        <div class="form-group">
+            <label>Role:</label>
+            <select name="role">
+                <option value="">-- All Roles --</option>
+                <option value="cleaner" {% if search_criteria.role == 'cleaner' %}selected{% endif %}>Cleaner</option>
+                <option value="homeowner" {% if search_criteria.role == 'homeowner' %}selected{% endif %}>Homeowner</option>
+                <option value="admin" {% if search_criteria.role == 'admin' %}selected{% endif %}>Admin</option>
+                <option value="platformmanager" {% if search_criteria.role == 'platformmanager' %}selected{% endif %}>Platform Manager</option>
+            </select>
+        </div>
+        <button type="submit">Search</button>
+        <a href="{{ url_for('searchUserAccountPage.searchUserAccounts') }}"><button type="button">Reset</button></a>
+    </form>
+
+    {% if users %}
+        <h3>Search Results</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.first_name }} {{ user.last_name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.role }}</td>
+                    <td>
+                        <a href="{{ url_for('viewUserAccountPage.viewUserAccount', id=user.id) }}">
+                            <button type="button">View</button>
+                        </a>
+                        <a href="{{ url_for('updateUserAccountPage.updateUserAccount', id=user.id) }}">
+                            <button type="button">Edit</button>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% elif search_criteria and search_criteria|length > 0 %}
+        <p>No users found matching your search criteria.</p>
+    {% endif %}
+{% endblock %}

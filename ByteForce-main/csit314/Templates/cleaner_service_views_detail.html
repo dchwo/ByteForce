@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}Service View Statistics{% endblock %}
+
+{% block header %}View Statistics for {{ listing_views.service_name }}{% endblock %}
+
+{% block content %}
+    <div class="stats-container">
+        <div class="stats-card">
+            <h3>Total Views: {{ listing_views.total_views }}</h3>
+            <p><strong>Service Name:</strong> {{ listing_views.service_name }}</p>
+            <p><strong>Type:</strong> {{ listing_views.type }}</p>
+            <p><strong>Price:</strong> ${{ listing_views.price }}</p>
+            <p><strong>Description:</strong> {{ listing_views.description }}</p>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <a href="{{ url_for('viewListingViewsPage.viewAllListingViews') }}">
+            <button type="button">Back to All View Statistics</button>
+        </a>
+        <a href="{{ url_for('searchCleanerListingPage.searchCleanerListing') }}">
+            <button type="button">Back to My Services</button>
+        </a>
+    </div>
+{% endblock %}

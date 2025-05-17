@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}Service Shortlist Statistics{% endblock %}
+
+{% block header %}Shortlist Statistics for {{ listing_shortlists.service_name }}{% endblock %}
+
+{% block content %}
+    <div class="stats-container">
+        <div class="stats-card">
+            <h3>Total Shortlisted: {{ listing_shortlists.shortlisted }}</h3>
+            <p><strong>Service Name:</strong> {{ listing_shortlists.service_name }}</p>
+            <p><strong>Type:</strong> {{ listing_shortlists.type }}</p>
+            <p><strong>Price:</strong> ${{ listing_shortlists.price }}</p>
+            <p><strong>Description:</strong> {{ listing_shortlists.description }}</p>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <a href="{{ url_for('viewListingShortlistsPage.viewAllListingShortlists') }}">
+            <button type="button">Back to All Shortlist Statistics</button>
+        </a>
+        <a href="{{ url_for('searchCleanerListingPage.searchCleanerListing') }}">
+            <button type="button">Back to My Services</button>
+        </a>
+    </div>
+{% endblock %}

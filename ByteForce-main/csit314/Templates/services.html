@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Services</title>
+    <link rel="stylesheet" href="{{ url_for('searchCleanerListingPage.static', filename='styles.css') }}">
+</head>
+<body>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>Welcome, {{ name }}</h2>
+        <a href="{{ url_for('userLogoutPage.logout') }}">Logout</a>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, msg in messages %}
+        <p class="flash-{{ category }}">{{ msg }}</p>
+      {% endfor %}
+    {% endwith %}
+
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>Your Services</h2>
+    </div>    
+
+    <form method="GET" action="{{ url_for('searchCleanerListingPage.searchCleanerListing') }}">
+        <input type="text" name="search" placeholder="Search service" value="{{ request.args.get('search', '') }}">
+        <button type="submit">Search</button>
+        <a href="{{ url_for('searchCleanerListingPage.searchCleanerListing') }}">
+            <button type="button">Reset</button>
+        </a>
+    </form>
+
+    {% if services %}
+    <table>
+        <thead>
+            <tr>
+                <th>Service Name</th>
+                <th>Price</th>
+                <th>Type</th>
+<!--                
+                <th>Description</th>
+                <th>Status</th>
+-->
+                <th>Total Views</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for s in services %}
+            <tr>
+                <td>{{ s.service_name }}</td>
+                <td>${{ s.price }}</td>
+                <td>{{ s.type }}</td>
+<!--
+                <td>{{ s.description }}</td>
+                <td>{{ s.status }}</td>
+-->
+                <td>{{ s.total_views }}</td>
+                <td>
+                    <a href="{{ url_for('updateCleanerListingPage.updateCleanerListing', id=s.id) }}">
+                        <button type="button">Edit</button>
+                    </a>
+                    <a href="{{ url_for('deleteCleanerListingPage.deleteCleanerListing', id=s.id) }}" onclick="return confirm('Delete this service?')">
+                        <button type="button">Delete</button>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No services found.</p>
+    {% endif %}
+
+    <br>
+    <a href="{{ url_for('createCleanerListingPage.createCleanerListing') }}">
+        <button type="button">Add New Service</button>
+    </a>
+
+</body>
+</html>
