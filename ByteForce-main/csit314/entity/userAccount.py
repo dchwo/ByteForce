@@ -18,7 +18,7 @@ class UserAccount:
         self.cursor.execute(query)
         return self.cursor.fetchall()
     
-    def addUser(self, first_name, last_name, email, role, password, sex, birth_date):
+    def addUser(self, first_name, last_name, email, role, password):
         
         # Check if the email already exists
         checkQuery = "SELECT email FROM users u WHERE email = %s"
@@ -40,7 +40,7 @@ class UserAccount:
 
             sql = """   
             INSERT INTO users
-            (first_name, last_name, email, role, password, sex, birth_date) 
+            (first_name, last_name, email, role, password) 
             VALUES (%s, %s, %s, %s, %s, %s, %s)
             """
 
@@ -49,9 +49,7 @@ class UserAccount:
                 last_name,
                 email,
                 role,
-                password,
-                sex,
-                birth_date
+                password
             ))
 
             self.conn.commit()
