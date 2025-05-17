@@ -15,7 +15,7 @@ def createUserAccount():
         # Get form data
         first_name = request.form['first_name']
         last_name = request.form['last_name']
-        email = request.form['email']
+        email = request.form['email'].lower()
         role = request.form['role']
         password = request.form['password']
         sex = request.form.get('sex', 'other')
