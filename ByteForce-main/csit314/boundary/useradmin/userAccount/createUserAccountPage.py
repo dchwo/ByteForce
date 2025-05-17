@@ -18,11 +18,9 @@ def createUserAccount():
         email = request.form['email'].lower()
         role = request.form['role']
         password = request.form['password']
-        sex = request.form.get('sex', 'other')
-        birth_date = request.form.get('birth_date')
         
         # Create user account
-        result = createUserAccountController.createUserProfile(role, first_name, last_name, email, password, sex, birth_date)
+        result = createUserAccountController.createUserProfile(role, first_name, last_name, email, password)
         
         if result:
             flash("User account created successfully.", "success")
