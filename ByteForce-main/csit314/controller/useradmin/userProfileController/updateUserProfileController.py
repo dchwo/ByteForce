@@ -4,5 +4,5 @@ class UpdateUserProfileController:
     def __init__(self):
         self.entity = UserProfile()
 
-    def update_profile(self, id):
-        return self.entity.update_profile(id)
+    def UpdateUserProfile(self, id, bio, avatar, preferences):
+        return self.entity.update_profile(id, bio, avatar, preferences)
