@@ -13,6 +13,20 @@ class UserProfile:
         self.cursor.execute(sql, (user_id,))
         return self.cursor.fetchone()
 
+    def get_all_profiles(self):
+        """Get all user profiles with user information"""
+        self.conn.commit()
+        
+        query = """
+            SELECT p.*, u.first_name, u.last_name, u.email, u.role, u.status
+            FROM user_profiles p
+            JOIN users u ON p.user_id = u.user_id
+            ORDER BY u.role, u.first_name, u.last_name
+        """
+        
+        self.cursor.execute(query)
+        return self.cursor.fetchall()
+
     def add(self, bio, avatar, status):
         """Create a new user profile"""
         sql = "INSERT INTO user_profiles (bio, avatar, status) VALUES (%s, %s, 'active')"
