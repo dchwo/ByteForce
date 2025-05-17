@@ -29,8 +29,8 @@ class UserProfile:
 
     def add(self, bio, avatar, status):
         """Create a new user profile"""
-        sql = "INSERT INTO user_profiles (bio, avatar, status) VALUES (%s, %s, 'active')"
-        self.cursor.execute(sql, (bio, avatar, status))
+        sql = "INSERT INTO user_profiles (role, description) VALUES (%s, %s, 'active')"
+        self.cursor.execute(sql, (role, description))
         self.conn.commit()
         return self.cursor.lastrowid
     
@@ -47,7 +47,7 @@ class UserProfile:
         params = []
         
         if search_term:
-            query += " AND (u.first_name LIKE %s OR u.last_name LIKE %s OR u.email LIKE %s OR p.bio LIKE %s)"
+            query += " AND (u.first_name LIKE %s OR u.last_name LIKE %s OR u.email LIKE %s)"
             search_pattern = f"%{search_term}%"
             params.extend([search_pattern, search_pattern, search_pattern, search_pattern])
         
@@ -64,22 +64,18 @@ class UserProfile:
         self.cursor.execute(query, params)
         return self.cursor.fetchall()
     
-    def update_profile(self, profile_id, bio=None, avatar=None, preferences=None):
+    def update_profile(self, profile_id, role=None, description=None):
         """Update user profile"""
         updates = []
         params = []
         
         if bio is not None:
-            updates.append("bio = %s")
-            params.append(bio)
+            updates.append("role = %s")
+            params.append(role)
         
         if avatar is not None:
-            updates.append("avatar = %s")
-            params.append(avatar)
-        
-        if preferences is not None:
-            updates.append("preferences = %s")
-            params.append(preferences)
+            updates.append("description = %s")
+            params.append(description)
         
         if not updates:
             return True  # Nothing to update
