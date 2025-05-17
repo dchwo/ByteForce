@@ -5,14 +5,7 @@ class UserProfile:
     def __init__(self):
         self.conn = mysql.connector.connect(**DB_CONFIG)
         self.cursor = self.conn.cursor(dictionary=True)
-    
-    def get_profile_by_id(self, profile_id):
-        """Get user profile by ID"""
-        self.conn.commit()
-        sql = "SELECT * FROM user_profiles WHERE profile_id=%s"
-        self.cursor.execute(sql, (profile_id,))
-        return self.cursor.fetchone()
-    
+        
     def get_profile_by_user_id(self, user_id):
         """Get user profile by user ID"""
         self.conn.commit()
