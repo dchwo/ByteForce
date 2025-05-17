@@ -4,5 +4,5 @@ class SearchUserProfileController:
     def __init__(self):
         self.entity = UserProfile()
 
-    def SearchUserProfile(self, id, role):
-        return self.entity.searchProfile(id, role)
+    def search_profiles(self, id, role):
+        return self.entity.search_profiles(id, role)
