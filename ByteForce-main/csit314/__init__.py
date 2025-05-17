@@ -31,6 +31,9 @@ from csit314.boundary.platformmanager.deleteServiceCategoryPage import deleteSer
 from csit314.boundary.platformmanager.suspendServiceCategoryPage import suspendServiceCategoryPage
 from csit314.boundary.platformmanager.searchServiceCategoryPage import searchServiceCategoryPage
 
+#User Admin
+from csit314.boundary.useradmin.adminDashboardPage import adminDashboardPage
+
 # User Admin - User Accounts
 from csit314.boundary.useradmin.userAccount.createUserAccountPage import createUserAccountPage
 from csit314.boundary.useradmin.userAccount.viewUserAccountPage import viewUserAccountPage
@@ -79,6 +82,9 @@ def create_app():
     app.register_blueprint(deleteServiceCategoryPage)
     app.register_blueprint(suspendServiceCategoryPage)
     app.register_blueprint(searchServiceCategoryPage)
+
+    #User Admin
+    app.register_blueprint(adminDashboardPage)
 
     #User Admin - User Account
     app.register_blueprint(createUserAccountPage)
