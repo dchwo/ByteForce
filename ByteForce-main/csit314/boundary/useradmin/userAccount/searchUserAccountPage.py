@@ -18,11 +18,13 @@ def searchUserAccounts():
     email = request.args.get('email')
     role = request.args.get('role')
     
-    # If any search parameter provided, perform search
+    # Modified version to fetch all users when no search parameters provided
     if any([id, first_name, last_name, email, role]):
+    # Search with criteria
         users = searchUserAccountController.SearchUserAccount(id, first_name, last_name, email, role)
     else:
-        users = None
+        # Get all users when no search criteria
+        users = searchUserAccountController.SearchUserAccount(None, None, None, None, None)
     
     return render_template('admin_search_users.html', 
                           users=users, 
