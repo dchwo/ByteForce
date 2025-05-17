@@ -34,4 +34,10 @@
         <button type="submit">Update User</button>
     </form>
     <a href="{{ url_for('viewUserAccountPage.viewUserAccount', id=user.user_id) }}">Cancel</a>
+    
+    <div class="action-buttons" style="margin-top: 20px;">
+        <a href="{{ url_for('userLoginPage.login') }}">
+            <button type="button">Back to Dashboard</button>
+        </a>
+    </div>
 {% endblock %}
