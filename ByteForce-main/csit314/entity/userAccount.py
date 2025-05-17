@@ -10,6 +10,13 @@ class UserAccount:
         sql = "SELECT * FROM users WHERE email=%s AND password=%s AND role=%s "
         self.cursor.execute(sql, (email, password, role))
         return self.cursor.fetchone()
+
+    def getAllUsers(self):
+        """Get all users"""
+        self.conn.commit()
+        query = "SELECT user_id as id, first_name, last_name, email, role, status FROM users ORDER BY role, last_name, first_name"
+        self.cursor.execute(query)
+        return self.cursor.fetchall()
     
     def addUser(self, first_name, last_name, email, role, password, sex, birth_date):
         
