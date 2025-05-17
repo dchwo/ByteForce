@@ -24,10 +24,8 @@ def login():
             elif role == "homeowner":
                 return redirect(url_for('searchListingPage.searchListing'))
             if role == "admin":
-                # TODO change redirect below
                 return  render_template('admin_landing.html')
             elif role == "platformmanager":
-                # Import the controller - add this import at the top of the file
                 from csit314.controller.platformmanager.viewServiceCategoryController import ViewServiceCategoryController
                 
                 # Get category statistics
