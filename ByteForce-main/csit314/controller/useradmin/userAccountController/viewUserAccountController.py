@@ -6,3 +6,7 @@ class ViewUserAccountController:
         
     def ViewUserAccount(self, id):
         return self.entity.getUserDetails(id)
+
+    def getAllUsers(self):
+        """Get all users"""
+        return self.entity.getAllUsers() 
