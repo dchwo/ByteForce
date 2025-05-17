@@ -23,7 +23,9 @@ def searchListing():
     max_price = request.args.get('max_price')
     type = request.args.get('type')
 
-    shortlisted_ids = searchShortlistController.searchShortlist(user_id)
+    shortlisted_services = searchShortlistController.searchShortlist(user_id)
+    shortlisted_ids = [service['id'] for service in shortlisted_services] if shortlisted_services else []
+
     if shortlisted_only:    
         if not shortlisted_ids:
             services = []
