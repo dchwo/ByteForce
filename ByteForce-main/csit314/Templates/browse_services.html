@@ -80,8 +80,13 @@
                 {% if request.args.get('shortlisted') %}
                     <a href="{{ url_for('searchListingPage.searchListing') }}">Show All Services</a>
                 {% else %}
+                    <!--
+                    <a href="{{ url_for('searchListingPage.searchListing', shortlisted=1) }}">Show Shortlisted Services</a>
+                    -->
                     <a href="{{ url_for('viewShortlistedListingsPage.viewShortlistedListings') }}">Show Shortlisted Services</a>
                 {% endif %}
+                |
+                <a href="{{ url_for('viewHomeownerHistoryPage.viewHomeownerHistory') }}">Show Service Histories</a>
             </div>
         </div>
     </form>
