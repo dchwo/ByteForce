@@ -5,16 +5,20 @@ class ServiceHistory:
     def __init__(self):
         self.conn = mysql.connector.connect(**DB_CONFIG)
         self.cursor = self.conn.cursor(dictionary=True)
-
+    
     def get_cleaner_history(self, cleaner_id, service_type=None, start_date=None, end_date=None):
         """Get service history for a cleaner with optional filters"""
         self.conn.commit()  # Refresh from latest committed data
         
         query = """
             SELECT sh.id, sh.service_date, sh.service_type, sh.price, sh.status,
-                   u.first_name, u.last_name, u.email
+                   h.first_name as h_first_name, h.last_name as h_last_name, h.email as h_email,
+                   c.first_name as c_first_name, c.last_name as c_last_name, c.email as c_email, 
+                   sl.service_name, sl.description
             FROM service_history sh
-            JOIN users u ON sh.homeowner_id = u.user_id
+            JOIN users h ON sh.homeowner_id = h.user_id
+            JOIN users c ON sh.cleaner_id = c.user_id
+            LEFT JOIN service_listings sl ON sh.service_listing_id = sl.id            
             WHERE sh.cleaner_id = %s
         """
         params = [cleaner_id]
@@ -42,10 +46,12 @@ class ServiceHistory:
         
         query = """
             SELECT sh.id, sh.service_date, sh.service_type, sh.price, sh.status,
-                   u.first_name, u.last_name, u.email,
+                   h.first_name as h_first_name, h.last_name as h_last_name, h.email as h_email,
+                   c.first_name as c_first_name, c.last_name as c_last_name, c.email as c_email,
                    sl.service_name, sl.description
             FROM service_history sh
-            JOIN users u ON sh.cleaner_id = u.user_id
+            JOIN users h ON sh.homeowner_id = h.user_id
+            JOIN users c ON sh.cleaner_id = c.user_id
             LEFT JOIN service_listings sl ON sh.service_listing_id = sl.id
             WHERE sh.homeowner_id = %s
         """
