@@ -11,10 +11,6 @@ def createUserProfile():
         flash("Please login as admin to access this page.", "danger")
         return redirect('/user_login')
     
-    # Get all users for the dropdown
-    user_controller = ViewUserAccountController()
-    users = user_controller.getAllUsers()
-    
     if request.method == 'POST':
         # Get form data
         user_id = request.form['user_id']
