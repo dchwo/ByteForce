@@ -101,6 +101,13 @@ CREATE TABLE `service_categories` (
 ALTER TABLE `service_listings` ADD COLUMN `category_id` int DEFAULT NULL;
 ALTER TABLE `service_listings` ADD CONSTRAINT `service_listings_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `service_categories` (`id`);
 
+INSERT INTO `service_categories` (
+  `id`, `name`, `description`, `min_price`, `max_price`, `status`, `create_date`, `update_date`
+) VALUES 
+(1, 'Residential Cleaning', 'Cleaning services for homes and apartments', 50.00, 200.00, 'active', '2025-05-18 15:50:42', '2025-05-18 15:50:42'),
+(2, 'Commercial Cleaning', 'Cleaning services for offices, shops, and commercial premises', 100.00, 500.00, 'active', '2025-05-18 15:50:42', '2025-05-18 15:50:42'),
+(3, 'Specialised Cleaning', 'Services for deep cleaning, post-renovation, or hazardous material cleanup', 150.00, 1000.00, 'active', '2025-05-18 15:50:42', '2025-05-18 15:50:42');
+
 CREATE TABLE `user_profiles` (
     `id` int NOT NULL AUTO_INCREMENT,
     `user_id` int NOT NULL,
