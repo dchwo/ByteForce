@@ -15,6 +15,14 @@
         <p><strong>Service Price:</strong> ${{ service.price }}</p>
         <p><strong>Service Description:</strong> {{ service.description }}</p>
     </div>
-    <a href="{{ url_for('searchListingPage.searchListing') }}">Back to Browse</a>
+    
+    <div class="action-buttons">
+        <a href="{{ url_for('bookServicePage.bookService', listing_id=service.id) }}">
+            <button type="button">Book this Service</button>
+        </a>
+        <a href="{{ url_for('searchListingPage.searchListing') }}">
+            <button type="button">Back to Browse</button>
+        </a>
+    </div>
 </body>
 </html>
