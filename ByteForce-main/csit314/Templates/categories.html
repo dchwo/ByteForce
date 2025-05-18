@@ -55,4 +55,10 @@
     {% else %}
         <p>No service categories found.</p>
     {% endif %}
+
+    <div class="action-buttons" style="margin-top: 20px;">
+        <a href="{{ url_for('platformManagerDashboardPage.viewDashboard') }}">
+            <button type="button">Back to Dashboard</button>
+        </a>
+    </div>
 {% endblock %}
