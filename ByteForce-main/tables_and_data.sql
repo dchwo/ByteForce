@@ -101,7 +101,7 @@ CREATE TABLE `service_categories` (
 ALTER TABLE `service_listings` ADD COLUMN `category_id` int DEFAULT NULL;
 ALTER TABLE `service_listings` ADD CONSTRAINT `service_listings_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `service_categories` (`id`);
 
-CREATE TABLE `profiles` (
+CREATE TABLE `user_profiles` (
     `id` int NOT NULL AUTO_INCREMENT,
     `user_id` int NOT NULL,
     `bio` text,
