@@ -62,7 +62,6 @@ class UserAccount:
         """
         self.cursor.execute(updateQuery, (role, first_name, last_name, email, password, id))
         self.conn.commit()
-        self.cursor.close()
         return True   
 
     def suspendUser(self, id):
