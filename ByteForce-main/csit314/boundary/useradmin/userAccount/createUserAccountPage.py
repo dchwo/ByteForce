@@ -20,7 +20,7 @@ def createUserAccount():
         password = request.form['password']
         
         # Create user account
-        result = createUserAccountController.createUserProfile(role, first_name, last_name, email, password)
+        result = createUserAccountController.createUserAccount(role, first_name, last_name, email, password)
         
         if result:
             flash("User account created successfully.", "success")
