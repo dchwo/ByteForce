@@ -27,21 +27,21 @@ class UserProfile:
         self.cursor.execute(query)
         return self.cursor.fetchall()
 
-    def add(self, bio, avatar, status):
+    def add(self, role, description, status):
         """Create a new user profile"""
-        sql = "INSERT INTO user_profiles (bio, avatar, status) VALUES (%s, %s, 'active')"
-        self.cursor.execute(sql, (bio, avatar, status))
+        sql = "INSERT INTO user_profiles (role, description, status) VALUES (%s, %s, 'active')"
+        self.cursor.execute(sql, (role, description, status))
         self.conn.commit()
         return self.cursor.lastrowid
     
-    def search_profiles(self, id=None, bio=None, first_name=None, last_name=None, email=None, role=None, status=None):
+    def search_profiles(self, id=None, role=None, first_name=None, last_name=None, email=None, status=None):
         """Search for user profiles"""
-
+    
         self.conn.commit()
         query = """
-            SELECT p.bio, u.user_id, u.first_name, u.last_name, u.email, u.role, u.status
+            SELECT p.description, u.user_id, u.first_name, u.last_name, u.email, u.role, u.status
             FROM users u
-            JOIN profiles p ON u.user_id = p.user_id
+            JOIN user_profiles p ON u.user_id = p.user_id
             WHERE 1=1
         """
         params = []
@@ -61,8 +61,9 @@ class UserProfile:
         if role:
             query += " AND role = %s"
             params.append(role)
-        if bio: 
-            query += " AND bio = %s"
+        if description: 
+            query += " AND description LIKE %s"
+            params.append(f"%{description}%")
             
         query += " ORDER BY role, id, first_name, last_name"
         
@@ -74,11 +75,11 @@ class UserProfile:
         updates = []
         params = []
         
-        if bio is not None:
+        if role is not None:
             updates.append("role = %s")
             params.append(role)
         
-        if avatar is not None:
+        if description is not None:
             updates.append("description = %s")
             params.append(description)
         
