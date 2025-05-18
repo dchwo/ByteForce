@@ -27,17 +27,6 @@ def login():
                 return redirect(url_for('adminDashboardPage.viewDashboard'))
             elif role == "platformmanager":
                 return redirect(url_for('platformManagerDashboardPage.viewDashboard'))
-                
-                # Get category statistics
-                service_category_controller = ViewServiceCategoryController()
-                all_categories = service_category_controller.getAllCategories()
-                active_categories = sum(1 for c in all_categories if c['status'] == 'active')
-                suspended_categories = sum(1 for c in all_categories if c['status'] == 'inactive')
-                
-                return render_template('platform_manager_landing.html', 
-                                       active_categories=active_categories,
-                                       suspended_categories=suspended_categories,
-                                       total_categories=len(all_categories))
             else:
                 flash("Invalid role specified", "danger")
                 return redirect(url_for('userLoginPage.login'))
