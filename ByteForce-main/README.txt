@@ -15,3 +15,8 @@ admin: admin2@cc.com
 property manager: pm1@cc.com
 property manager: pm2@cc.com
 
+For scripts (before py run.py)
+1) update the database connection details for script files (similar to config.py)
+2) open a terminal window
+3) py insertServiceListings.py 
+4) py insertServiceHistories.py
