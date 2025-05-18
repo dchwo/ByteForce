@@ -104,12 +104,12 @@ ALTER TABLE `service_listings` ADD CONSTRAINT `service_listings_ibfk_2` FOREIGN 
 CREATE TABLE `user_profiles` (
     `id` int NOT NULL AUTO_INCREMENT,
     `user_id` int NOT NULL,
-    `bio` text,
-    `avatar` varchar(255),
+    `role` varchar(100) NOT NULL,
+    `description` text,
     `status` enum('active','inactive') DEFAULT 'active',
     `create_date` datetime DEFAULT CURRENT_TIMESTAMP,
     `update_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
     KEY `user_id`(`user_id`),
-    CONSTRAINT `profiles_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
+    CONSTRAINT `user_profiles_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 );
