@@ -14,10 +14,6 @@
             <label>Description:</label>
             <textarea name="description" rows="4" cols="50">{{ profile.description or '' }}</textarea>
         </div>
-        <div class="form-group">
-            <label>Preferences:</label>
-            <textarea name="preferences" rows="4" cols="50">{{ profile.preferences or '' }}</textarea>
-        </div>
         <button type="submit">Update Profile</button>
     </form>
     <a href="{{ url_for('viewUserProfilePage.viewUserProfile', id=profile.profile_id) }}">Cancel</a>
