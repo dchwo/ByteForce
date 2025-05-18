@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Service Details</title>
+    <link rel="stylesheet" href="{{ url_for('viewListingPage.static', filename='styles.css') }}">
+</head>
+<body>
+    <h2>Service Details</h2>
+    <div class="service-detail">
+        <p><strong>Cleaner Name:</strong> {{ servicehistory.cleaner_first_name }} {{ servicehistory.cleaner_last_name }}</p>
+        <p><strong>Cleaner Email:</strong> {{ servicehistory.cleaner_email }}</p>
+        <p><strong>Homeowner Name:</strong> {{ servicehistory.homeowner_first_name }} {{ servicehistory.homeowner_last_name }}</p>
+        <p><strong>Homeowner Email:</strong> {{ servicehistory.homeowner_email }}</p>
+        <p><strong>Service Name:</strong> {{ servicehistory.service_name }}</p>
+        <p><strong>Service Description:</strong> {{ servicehistory.description }}</p>
+        <p><strong>Service Type:</strong> {{ servicehistory.type }}</p>
+    </div>
+    
+    <div class="action-buttons">
+        <a href="{{ url_for('viewServiceHistoryPage.viewServiceHistory') }}">
+            <button type="button">Back to Browse</button>
+        </a>
+    </div>
+</body>
+</html>
