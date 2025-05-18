@@ -11,20 +11,25 @@ def createUserProfile():
         flash("Please login as admin to access this page.", "danger")
         return redirect('/user_login')
     
+    # Get all users for the dropdown
+    user_controller = ViewUserAccountController()
+    users = user_controller.getAllUsers()
+    
     if request.method == 'POST':
         # Get form data
+        user_id = request.form['user_id']
         role = request.form['role']
         description = request.form['description']
         
         # Create user profile
-        result = createUserProfileController.createUserProfile(role, description)
+        result = createUserProfileController.createUserProfile(user_id, role, description)
         
         if result:
             flash("User profile created successfully.", "success")
             return redirect('/admin/profiles')
         else:
             flash("Failed to create user profile.", "danger")
-            return render_template('admin_add_profile.html', name=session.get('first_name'))
+            return render_template('admin_add_profile.html', name=session.get('first_name'), users=users)
     
     # If GET request, show the form
-    return render_template('admin_add_profile.html', name=session.get('first_name'))
+    return render_template('admin_add_profile.html', name=session.get('first_name'), users=users)
