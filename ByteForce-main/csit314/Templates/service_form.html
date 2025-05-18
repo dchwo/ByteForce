@@ -9,6 +9,19 @@
 
     <form method="POST">
         <div class="form-group">
+            <label>Category:</label>
+            <select name="category_id" required>
+                <option value="">-- Select Category --</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}" 
+                        {% if service.get('category_id') == category.id %}selected{% endif %}>
+                        {{ category.name }} {% if category.min_price and category.max_price %}(${{ category.min_price }} - ${{ category.max_price }}){% endif %}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="form-group">
             <label>Service Name:</label>
             <input type="text" name="service_name" value="{{ service.service_name or '' }}" required>
         </div>
