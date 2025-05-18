@@ -26,7 +26,7 @@ def login():
             if role == "admin":
                 return redirect(url_for('adminDashboardPage.viewDashboard'))
             elif role == "platformmanager":
-                from csit314.controller.platformmanager.viewServiceCategoryController import ViewServiceCategoryController
+                return redirect(url_for('platformManagerDashboardPage.viewDashboard'))
                 
                 # Get category statistics
                 service_category_controller = ViewServiceCategoryController()
