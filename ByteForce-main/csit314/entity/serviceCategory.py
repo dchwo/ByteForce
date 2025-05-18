@@ -11,6 +11,12 @@ class ServiceCategory:
         self.conn.commit()
         self.cursor.execute("SELECT * FROM service_categories ORDER BY name")
         return self.cursor.fetchall()
+
+    def get_active_categories(self):
+        """Get all active service categories"""
+        self.conn.commit()
+        self.cursor.execute("SELECT * FROM service_categories WHERE status = 'active' ORDER BY name")
+        return self.cursor.fetchall()
     
     def get_category(self, category_id):
         """Get a specific service category by ID"""
