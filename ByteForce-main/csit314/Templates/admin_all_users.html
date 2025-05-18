@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}All User Accounts{% endblock %}
+
+{% block header %}All User Accounts{% endblock %}
+
+{% block content %}
+    <div class="action-buttons">
+        <a href="{{ url_for('createUserAccountPage.createUserAccount') }}">
+            <button type="button">Add New User</button>
+        </a>
+        <a href="{{ url_for('searchUserAccountPage.searchUserAccounts') }}">
+            <button type="button">Search Users</button>
+        </a>
+    </div>
+
+    {% if users %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.first_name }} {{ user.last_name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.role }}</td>
+                    <td>{{ user.status }}</td>
+                    <td>
+                        <a href="{{ url_for('viewUserAccountPage.viewUserAccount', id=user.id) }}">
+                            <button type="button">View</button>
+                        </a>
+                        <a href="{{ url_for('updateUserAccountPage.updateUserAccount', id=user.id) }}">
+                            <button type="button">Edit</button>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No users found.</p>
+    {% endif %}
+    
+    <div class="action-buttons" style="margin-top: 20px;">
+        <a href="{{ url_for('adminDashboardPage.viewDashboard') }}">
+            <button type="button">Back to Dashboard</button>
+        </a>
+    </div>
+{% endblock %}
