@@ -49,11 +49,11 @@ class UserProfile:
         if id:
             query += " AND p.id = %s"
             params.append(id)
+        if status:
+            query += " AND p.status = %s"
         if uid: 
             query += " AND u.user_id = %s"
             params.append(uid)
-        if status:
-            query += " AND p.status = %s"
         if first_name:
             query += " AND u.first_name LIKE %s"
             params.append(f"%{first_name}%")
