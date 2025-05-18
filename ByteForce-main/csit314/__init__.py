@@ -12,15 +12,15 @@ from csit314.boundary.cleaner.viewListingViewsPage import viewListingViewsPage
 from csit314.boundary.cleaner.viewListingShortlistsPage import viewListingShortlistsPage
 
 # Home Owner
-from csit314.boundary.homeowner.viewListingPage     import viewListingPage
-from csit314.boundary.homeowner.searchListingPage   import searchListingPage
+from csit314.boundary.homeowner.viewListingPage import viewListingPage
+from csit314.boundary.homeowner.searchListingPage import searchListingPage
 from csit314.boundary.homeowner.toggleShortlistPage import toggleShortlistPage
 from csit314.boundary.homeowner.viewHomeownerHistoryPage import viewHomeownerHistoryPage
 from csit314.boundary.homeowner.searchHomeownerHistoryPage import searchHomeownerHistoryPage
 from csit314.boundary.homeowner.viewShortlistedListingsPage import viewShortlistedListingsPage
 
 # User Account
-from csit314.boundary.user.userLoginPage  import userLoginPage
+from csit314.boundary.user.userLoginPage import userLoginPage
 from csit314.boundary.user.userLogoutPage import userLogoutPage
 
 # Platform Manager
