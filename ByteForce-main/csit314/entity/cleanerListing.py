@@ -22,14 +22,14 @@ class CleanerListing:
         self.cursor.execute(sql, (service_id, user_id))
         return self.cursor.fetchone()
 
-    def add(self, user_id, name, price, type, description):
-        sql = "INSERT INTO service_listings (user_id, service_name, price, type, description) VALUES (%s, %s, %s, %s, %s)"
-        self.cursor.execute(sql, (user_id, name, price, type, description))
+    def add(self, user_id, name, price, type, description, category_id=None):
+        sql = "INSERT INTO service_listings (user_id, service_name, price, type, description, category_id) VALUES (%s, %s, %s, %s, %s, %s)"
+        self.cursor.execute(sql, (user_id, name, price, type, description, category_id))
         self.conn.commit()
 
-    def update(self, service_id, user_id, name, price, type, description):
-        sql = "UPDATE service_listings SET service_name=%s, price=%s, type=%s, description=%s WHERE id=%s AND user_id=%s"
-        self.cursor.execute(sql, (name, price, type, description, service_id, user_id))
+    def update(self, service_id, user_id, name, price, type, description, category_id=None):
+        sql = "UPDATE service_listings SET service_name=%s, price=%s, type=%s, description=%s, category_id=%s WHERE id=%s AND user_id=%s"
+        self.cursor.execute(sql, (name, price, type, description, category_id, service_id, user_id))
         self.conn.commit()
 
     def delete(self, service_id, user_id):
