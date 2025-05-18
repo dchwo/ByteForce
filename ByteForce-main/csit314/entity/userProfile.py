@@ -27,10 +27,10 @@ class UserProfile:
         self.cursor.execute(query)
         return self.cursor.fetchall()
 
-    def add(self, role, description, status):
+    def add(self, role, description):
         """Create a new user profile"""
-        sql = "INSERT INTO user_profiles (role, description, status) VALUES (%s, %s, 'active')"
-        self.cursor.execute(sql, (role, description, status))
+        sql = "INSERT INTO user_profiles (role, description) VALUES (%s, %s)"
+        self.cursor.execute(sql, (role, description))
         self.conn.commit()
         return self.cursor.lastrowid
     
