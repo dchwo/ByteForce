@@ -48,22 +48,24 @@ class CleanerListing:
 
         self.cursor.execute(
             """
-            SELECT s.service_name, s.price, s.type, s.description,
-                u.first_name, u.last_name, u.email, u.sex
+            SELECT s.id, s.service_name, s.price, s.type, s.description,
+                u.user_id, u.first_name, u.last_name, u.email, u.sex, c.name AS category_name
             FROM service_listings s
             JOIN users u ON s.user_id = u.user_id
+            LEFT JOIN service_categories c ON s.category_id = c.id
             WHERE s.id = %s
             """, (service_id,)
         )
         return self.cursor.fetchone()     
      
-    def search_service_listings(self, name=None, email=None, service_name=None, min_price=None, max_price=None, type=None):
+    def search_service_listings(self, name=None, email=None, service_name=None, min_price=None, max_price=None, type=None, category_id=None):
         self.conn.commit()  # Add this line to refresh from latest committed data  
         query = """
-            SELECT s.id, s.service_name, s.price, s.type, s.description, s.total_views,
+            SELECT s.id, s.service_name, s.price, s.type, s.description, s.total_views, c.name AS category_name, 
                    u.first_name, u.last_name, u.email
             FROM service_listings s
             JOIN users u ON s.user_id = u.user_id
+            LEFT JOIN service_categories c ON s.category_id = c.id
             WHERE s.status = 'active'
         """
         filters = []
@@ -81,6 +83,9 @@ class CleanerListing:
         if type:
             query += " AND s.type = %s"
             filters.append(type)
+        if category_id:
+            query += " AND s.category_id = %s"
+            filters.append(category_id)            
         if min_price:
             query += " AND s.price >= %s"
             filters.append(min_price)
@@ -98,6 +103,7 @@ class CleanerListing:
             "type": row["type"],
             "description": row["description"],
             "total_views": row["total_views"],
+            "category_name": row["category_name"],
             "first_name": row["first_name"],
             "last_name": row["last_name"],
             "email": row["email"]
