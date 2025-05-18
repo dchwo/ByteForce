@@ -18,11 +18,11 @@ def createUserProfile():
     if request.method == 'POST':
         # Get form data
         user_id = request.form['user_id']
-        role = request.form['role']
-        description = request.form['description']
+        role = request.form['bio']
+        description = request.form['avatar']
         
         # Create user profile
-        result = createUserProfileController.createUserProfile(user_id, role, description)
+        result = createUserProfileController.createUserProfile(user_id, bio, avatar)
         
         if result:
             flash("User profile created successfully.", "success")
