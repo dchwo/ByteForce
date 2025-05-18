@@ -13,8 +13,8 @@ def searchHomeownerHistory():
     start_date = request.args.get('start_date')
     end_date = request.args.get('end_date')
     
-    if not any([service_type, start_date, end_date]):
-        return render_template('search_homeowner_history.html', history=None)
+    # if not any([service_type, start_date, end_date]):
+    #     return render_template('search_homeowner_history.html', history=None)
     
     history = searchHomeownerHistoryController.searchHomeownerServiceHistory(
         session['user_id'], 
