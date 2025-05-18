@@ -18,35 +18,34 @@ class UserAccount:
         self.cursor.execute(query)
         return self.cursor.fetchall()
     
-    def addUser(self, first_name, last_name, email, role, password):
-        
+    def addUser(self, role, first_name, last_name, email, password):
         # Check if the email already exists
-        checkQuery = "SELECT email FROM users u WHERE email = %s"
+        checkQuery = "SELECT email FROM users WHERE email = %s"
         self.cursor.execute(checkQuery, (email,))
         existingUser = self.cursor.fetchone()
-
+    
         if existingUser:
             return False  # User already exists
             
         else:
             sql = """   
             INSERT INTO users
-            (first_name, last_name, email, role, password) 
+            (role, first_name, last_name, email, password) 
             VALUES (%s, %s, %s, %s, %s)
             """
-
+    
             self.cursor.execute(sql, (
+                role,
                 first_name,
                 last_name,
                 email,
-                role,
                 password
             ))
-
+    
             self.conn.commit()
-            self.cursor.close()
-
-            return True
+            # Remove cursor.close() - it should not be closed here
+        
+        return True
     
     def getUserDetails(self, id):
         # Get the user details from the database
