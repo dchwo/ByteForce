@@ -12,7 +12,7 @@ def createUserProfile():
         return redirect('/user_login')
     
     # Get all users for the dropdown
-    user_controller = ViewUserProfileController()
+    user_controller = ViewUserAccountController()
     users = user_controller.getAllUsers()
     
     if request.method == 'POST':
