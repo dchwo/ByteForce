@@ -18,6 +18,7 @@ from csit314.boundary.homeowner.toggleShortlistPage import toggleShortlistPage
 from csit314.boundary.homeowner.viewHomeownerHistoryPage import viewHomeownerHistoryPage
 from csit314.boundary.homeowner.searchHomeownerHistoryPage import searchHomeownerHistoryPage
 from csit314.boundary.homeowner.viewShortlistedListingsPage import viewShortlistedListingsPage
+from csit314.boundary.homeowner.bookServicePage import bookServicePage
 
 # User Account
 from csit314.boundary.user.userLoginPage  import userLoginPage
@@ -59,6 +60,7 @@ def create_app():
     app.register_blueprint(viewHomeownerHistoryPage)
     app.register_blueprint(searchHomeownerHistoryPage)
     app.register_blueprint(viewShortlistedListingsPage)
+    app.register_blueprint(bookServicePage)
 
     # Cleaner
     app.register_blueprint(searchCleanerListingPage)
