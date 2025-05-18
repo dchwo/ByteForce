@@ -13,11 +13,16 @@ def searchUserProfiles():
     
     # Get search parameters
     id = request.args.get('id')
+    status = request.args.get('status')
+    uid = request.args.get('uid')
     role = request.args.get('role')
+    email = request.args.get('email')
+    first_name = request.args.get('first_name')
+    last_name = request.args.get('last_name')
     
     # If any search parameter provided, perform search
-    if any([id, role]):
-        profiles = searchUserProfileController.SearchUserProfile(id, role)
+    if any([id, status, uid, role, email, first_name, last_name]):
+        profiles = searchUserProfileController.SearchUserProfile(id, status, uid, role, email, first_name, last_name)
     else:
         profiles = None
     
@@ -25,6 +30,11 @@ def searchUserProfiles():
                           profiles=profiles, 
                           search_criteria={
                               'id': id,
-                              'role': role
+                              'status': status,
+                              'uid': uid,
+                              'role': role,
+                              'email': email,
+                              'first_name': first_name,
+                              'last_name': last_name
                           },
                           name=session.get('first_name'))
