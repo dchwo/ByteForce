@@ -34,10 +34,23 @@ def viewServiceHistoryDetail(id):
     if 'user_id' not in session or session['role'] != 'cleaner':
         return redirect('/user_login')
     
-    detail = viewServiceHistoryController.getServiceHistoryDetail(id)
+    servicehistory = viewServiceHistoryController.getServiceHistoryDetail(id)
     
-    if not detail or detail['cleaner_id'] != session['user_id']:
+    if not servicehistory:
         flash('Service history record not found.', 'warning')
         return redirect('/service_history')
     
-    return render_template('service_history_detail.html', history=detail)
+    return render_template('service_history_detail.html', servicehistory=servicehistory)
+
+@viewServiceHistoryPage.route('/my_service_history/<int:id>')
+def viewMyServiceHistoryDetail(id):
+    if 'user_id' not in session or session['role'] != 'homeowner':
+        return redirect('/user_login')
+    
+    servicehistory = viewServiceHistoryController.getServiceHistoryDetail(id)
+    
+    if not servicehistory:
+        flash('Service history record not found.', 'warning')
+        return redirect('/my_service_history')
+    
+    return render_template('homeowner_service_history_detail.html', servicehistory=servicehistory)
