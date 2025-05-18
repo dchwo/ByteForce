@@ -34,10 +34,10 @@ def viewHomeownerHistoryDetail(id):
     if 'user_id' not in session or session['role'] != 'homeowner':
         return redirect('/user_login')
     
-    detail = viewHomeownerHistoryController.getServiceHistoryDetail(id)
+    servicehistory = viewHomeownerHistoryController.getServiceHistoryDetail(id)
     
-    if not detail or detail['homeowner_id'] != session['user_id']:
+    if not servicehistory or servicehistory['homeowner_id'] != session['user_id']:
         flash('Service history record not found.', 'warning')
         return redirect('/my_service_history')
     
-    return render_template('homeowner_history_detail.html', history=detail)
+    return render_template('homeowner_history_detail.html', servicehistory=servicehistory)
