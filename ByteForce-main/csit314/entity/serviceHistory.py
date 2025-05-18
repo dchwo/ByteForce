@@ -5,6 +5,29 @@ class ServiceHistory:
     def __init__(self):
         self.conn = mysql.connector.connect(**DB_CONFIG)
         self.cursor = self.conn.cursor(dictionary=True)
+
+    def create_booking(self, cleaner_id, homeowner_id, service_listing_id, service_type, service_date, price, notes=None):
+    """Create a new service booking"""
+    sql = """
+        INSERT INTO service_history 
+        (cleaner_id, homeowner_id, service_listing_id, service_type, service_date, price, status, notes) 
+        VALUES (%s, %s, %s, %s, %s, %s, 'pending', %s)
+    """
+    try:
+        self.cursor.execute(sql, (
+            cleaner_id, 
+            homeowner_id, 
+            service_listing_id,
+            service_type,
+            service_date,
+            price,
+            notes
+        ))
+        self.conn.commit()
+        return True
+    except Exception as e:
+        print(f"Error creating booking: {e}")
+        return False
     
     def get_cleaner_history(self, cleaner_id, service_type=None, start_date=None, end_date=None):
         """Get service history for a cleaner with optional filters"""
