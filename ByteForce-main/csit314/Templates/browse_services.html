@@ -49,10 +49,25 @@
             <label>Type:</label>
             <select name="type" class="form-control">
                 <option value="">-- All Types --</option>
-                <option value="Office" {% if request.args.get('type') == 'Office' %}selected{% endif %}>Office</option>
-                <option value="HDB" {% if request.args.get('type') == 'HDB' %}selected{% endif %}>HDB</option>
-                <option value="Condo" {% if request.args.get('type') == 'Condo' %}selected{% endif %}>Condo</option>
-                <option value="Landed" {% if request.args.get('type') == 'Landed' %}selected{% endif %}>Landed</option>
+                <option value="General Cleaning" {% if request.args.get('type') == 'General Cleaning' %}selected{% endif %}>General Cleaning</option>
+                <option value="Deep Cleaning" {% if request.args.get('type') == 'Deep Cleaning' %}selected{% endif %}>Deep Cleaning</option>
+                <option value="Carpet Cleaning" {% if request.args.get('type') == 'Carpet Cleaning' %}selected{% endif %}>Carpet Cleaning</option>
+                <option value="Office Cleaning" {% if request.args.get('type') == 'Office Cleaning' %}selected{% endif %}>Office Cleaning</option>
+                <option value="Janitorial Service" {% if request.args.get('type') == 'Janitorial Service' %}selected{% endif %}>Janitorial Service</option>
+                <option value="Pressure Washing" {% if request.args.get('type') == 'Pressure Washing' %}selected{% endif %}>Pressure Washing</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Category:</label>
+            <select name="category_id">
+                <option value="">-- Select Category --</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}" {% if request.args.get('category_id') == category.id|string %}selected{% endif %}>
+
+                        {{ category.name }} 
+                    </option>
+                {% endfor %}
             </select>
         </div>
 
@@ -65,7 +80,7 @@
                 {% if request.args.get('shortlisted') %}
                     <a href="{{ url_for('searchListingPage.searchListing') }}">Show All Services</a>
                 {% else %}
-                    <a href="{{ url_for('searchListingPage.searchListing', shortlisted=1) }}">Show Shortlisted Services</a>
+                    <a href="{{ url_for('viewShortlistedListingsPage.viewShortlistedListings') }}">Show Shortlisted Services</a>
                 {% endif %}
             </div>
         </div>
@@ -79,13 +94,14 @@
 <!--
                 <th>Email</th>
 -->
-                <th>Service</th>
+                <th>Service Name</th>
+                <th>Category</th>
                 <th>Type</th>
+                <th>Price</th>
 <!--
                 <th>Description</th>
                 <th>Total Views</th>
 -->
-                <th>Price</th>
                 <th>Details</th>
                 <th>Shortlisted</th>
             </tr>
@@ -98,19 +114,20 @@
                 <td>{{ s.email }}</td>
 -->                
                 <td>{{ s.service_name }}</td>
+                <td>{{ s.category_name }}</td>                
                 <td>{{ s.type }}</td>
+                <td>${{ s.price }}</td>                
 <!--
                 <td>{{ s.description }}</td>
                 <td>{{ s.total_views }}</td>
 -->
-                <td>${{ s.price }}</td>
                 <td>
                     <a href="{{ url_for('viewListingPage.viewListing', id=s.id) }}">
                         <button type="button">View</button>
                     </a>
                 </td>                
                 <td>
-                    <form method="POST" action="{% if request.args.get('shortlisted') %}{{ url_for('toggleShortlistPage.toggleShortlist', listing_id=s.id) }}?shortlisted=1{% else %}{{ url_for('toggleShortlistPage.toggleShortlist', listing_id=s.id) }}{% endif %}">
+                    <form method="POST" action="{% if request.args.get('shortlisted') %}{{ url_for('toggleShortlistPage.toggleShortlist', listing_id=s.id, fromShortlistPage=0) }}?shortlisted=1{% else %}{{ url_for('toggleShortlistPage.toggleShortlist', listing_id=s.id, fromShortlistPage=0) }}{% endif %}">
                         <button type="submit">
                             {% if s.id in shortlisted_ids %}Remove{% else %}Add{% endif %}
                         </button>
