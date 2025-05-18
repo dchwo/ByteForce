@@ -13,7 +13,9 @@
                 <h2>{% block header %}Welcome{% if session.get('first_name') %}, {{ session.get('first_name') }}{% endif %}{% endblock %}</h2>
                 <div class="nav-actions">
                     {% if session.get('role') == 'admin' %}
-                        <a href="{{ url_for('adminDashboardPage.viewDashboard') }}">Admin Dashboard</a>
+                        <a href="{{ url_for('adminDashboardPage.viewDashboard') }}">Admin Dashboard</a> | 
+                    {% elif session.get('role') == 'platformmanager' %}
+                        <a href="{{ url_for('platformManagerDashboardPage.viewDashboard') }}">Platform Manager Dashboard</a> | 
                     {% endif %}
                     {% if session.get('user_id') %}
                         <a href="{{ url_for('userLogoutPage.logout') }}">Logout</a>
