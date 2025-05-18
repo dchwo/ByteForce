@@ -7,12 +7,12 @@
 {% block content %}
     <form method="POST">
         <div class="form-group">
-            <label>Bio:</label>
-            <textarea name="bio" rows="4" cols="50">{{ profile.bio or '' }}</textarea>
+            <label>Role:</label>
+            <input type="text" name="role" value="{{ profile.role or '' }}">
         </div>
         <div class="form-group">
-            <label>Avatar URL:</label>
-            <input type="text" name="avatar" value="{{ profile.avatar or '' }}">
+            <label>Description:</label>
+            <textarea name="description" rows="4" cols="50">{{ profile.description or '' }}</textarea>
         </div>
         <div class="form-group">
             <label>Preferences:</label>
