@@ -5,11 +5,22 @@
 {% block header %}My Shortlisted Services{% endblock %}
 
 {% block content %}
+    <!--
     <div class="action-buttons">
         <a href="{{ url_for('searchListingPage.searchListing') }}">
             <button type="button">Browse More Services</button>
         </a>
     </div>
+    -->
+    <p>&nbsp;</p>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            &nbsp;
+        </div>
+        <div>
+            <a href="{{ url_for('searchListingPage.searchListing') }}">Show All Services</a>
+        </div>
+    </div>    
     
     {% if services|length == 0 %}
         <p>You haven't shortlisted any services yet. <a href="{{ url_for('searchListingPage.searchListing') }}">Browse services</a> to find and shortlist services you're interested in.</p>
@@ -17,27 +28,31 @@
         <table>
             <thead>
                 <tr>
+                    <th>Cleaner Name</th>
                     <th>Service Name</th>
                     <th>Type</th>
-                    <th>Price</th>
-                    <th>Provider</th>
+                    <th>Price</th>                  
                     <th>Shortlisted On</th>
-                    <th>Actions</th>
+                    <th>Details</th>
+                    <th>Shortlisted</th>
                 </tr>
             </thead>
             <tbody>
                 {% for service in services %}
                 <tr>
+                    <td>{{ service.first_name }} {{ service.last_name }}</td>
                     <td>{{ service.service_name }}</td>
                     <td>{{ service.type }}</td>
-                    <td>${{ service.price }}</td>
-                    <td>{{ service.first_name }} {{ service.last_name }}</td>
+                    <td>${{ service.price }}</td>                   
                     <td>{{ service.shortlisted_date }}</td>
                     <td>
                         <a href="{{ url_for('viewListingPage.viewListing', id=service.id) }}">
                             <button type="button">View Details</button>
                         </a>
-                        <form action="{{ url_for('toggleShortlistPage.toggleShortlist', listing_id=service.id) }}" method="POST" style="display: inline;">
+                    </td>
+                    <td>
+                        <form action="{{ url_for('toggleShortlistPage.toggleShortlist', listing_id=service.id, fromShortlistPage=1) }}" method="POST" style="display: inline;">
+                            <input type="hidden" name="shortlisted" value="1">
                             <button type="submit">Remove</button>
                         </form>
                     </td>
