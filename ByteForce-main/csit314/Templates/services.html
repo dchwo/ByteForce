@@ -33,13 +33,15 @@
         <thead>
             <tr>
                 <th>Service Name</th>
-                <th>Price</th>
+                <th>Category</th>
                 <th>Type</th>
+                <th>Price</th>
 <!--                
                 <th>Description</th>
                 <th>Status</th>
 -->
                 <th>Total Views</th>
+                <th>Total Shortlisted</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -47,13 +49,15 @@
         {% for s in services %}
             <tr>
                 <td>{{ s.service_name }}</td>
-                <td>${{ s.price }}</td>
+                <td>{{ s.category_name }}</td>
                 <td>{{ s.type }}</td>
+                <td>${{ s.price }}</td>
 <!--
                 <td>{{ s.description }}</td>
                 <td>{{ s.status }}</td>
 -->
                 <td>{{ s.total_views }}</td>
+                <td>{{ s.shortlisted }}</td>
                 <td>
                     <a href="{{ url_for('updateCleanerListingPage.updateCleanerListing', id=s.id) }}">
                         <button type="button">Edit</button>
