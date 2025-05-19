@@ -119,7 +119,7 @@ class UserProfile:
             return True  # Was active, now inactive
         else:
             # If not active, set to 'active'
-             update_sql = "UPDATE user_profiles SET status = 'active' WHERE user_id = %s"
+            update_sql = "UPDATE user_profiles SET status = 'active' WHERE user_id = %s"
             self.cursor.execute(update_sql, (user_id,))
             self.conn.commit()
             return False 
