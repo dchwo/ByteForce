@@ -27,7 +27,7 @@ VALUES
 
 -- Cleaners
 ('Charlie', 'Ng', 'cleaner1@cc.com', 'password', 'cleaner', 'male', '1990-11-03', 'active'),
-('Diana', 'Lee',  'cleaner2@cc.com',  'password', 'cleaner', 'female', '1988-04-17', 'inactive'),
+('Diana', 'Lee',  'cleaner2@cc.com',  'password', 'cleaner', 'female', '1988-04-17', 'active'),
 
 -- Homeowners
 ('Ethan', 'Goh', 'ho1@cc.com', 'password', 'homeowner', 'male', '1992-09-22', 'active'),
