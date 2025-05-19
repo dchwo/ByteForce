@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, session, flash
+from flask import Blueprint, render_template, redirect, session, flash, request
 from csit314.controller.homeowner.viewShortlistedListingsController import ViewShortlistedListingsController
 
 viewShortlistedListingsPage = Blueprint('viewShortlistedListingsPage', __name__, template_folder='../templates', static_folder='../static')
@@ -12,7 +12,8 @@ def viewShortlistedListings():
         return redirect('/user_login')
     
     # Get shortlisted listings
-    shortlisted_services = viewShortlistedListingsController.getShortlistedListings(session['user_id'])
+    query = request.args.get('search')
+    shortlisted_services = viewShortlistedListingsController.getShortlistedListings(session['user_id'], query)
     
     return render_template('homeowner_shortlisted_services.html', 
                           services=shortlisted_services, 
