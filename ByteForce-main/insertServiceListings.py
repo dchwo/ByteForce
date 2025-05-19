@@ -43,7 +43,7 @@ if not cleaner_ids or not category_ids:
     print("Missing cleaner users or service categories.")
 else:
     for cleaner_id in cleaner_ids:
-        for i in range(5):  # Insert 5 listings per cleaner
+        for i in range(10):  # Insert 10 listings per cleaner
             base_name = random.choice(service_titles)
             service_name = f"{base_name} ({random.randint(1, 100)})"
             type_value = random.choice(types)
