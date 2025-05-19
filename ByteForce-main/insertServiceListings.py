@@ -69,7 +69,7 @@ else:
             print(f"Inserted service for cleaner_id={cleaner_id}: '{service_name}'")
 
     conn.commit()
-    print(f"✅ Inserted {len(cleaner_ids) * 5} service_listings (5 per cleaner).")
+    print(f"✅ Inserted {len(cleaner_ids) * 10} service_listings (10 per cleaner).")
 
 cursor.close()
 conn.close()
