@@ -6,21 +6,32 @@ class HomeownerShortlist:
         self.conn = mysql.connector.connect(**DB_CONFIG)
         self.cursor = self.conn.cursor(dictionary=True)
 
-    def get_shortlisted_listings(self, user_id):
+    def get_shortlisted_listings(self, user_id, query=None):
         """Get all shortlisted listings for a homeowner with details"""
         self.conn.commit()  # Refresh from latest committed data
         
-        query = """
-            SELECT s.id, s.service_name, s.price, s.type, s.description, s.total_views,
-                   u.first_name, u.last_name, u.email, sl.create_date as shortlisted_date
-            FROM shortlisted_listings sl
-            JOIN service_listings s ON sl.listing_id = s.id
-            JOIN users u ON s.user_id = u.user_id
-            WHERE sl.user_id = %s
-            ORDER BY sl.create_date DESC
-        """
-        
-        self.cursor.execute(query, (user_id,))
+        if query:
+            sql = """
+                SELECT s.id, s.service_name, s.price, s.type, s.description, s.total_views,
+                    u.first_name, u.last_name, u.email, sl.create_date as shortlisted_date
+                FROM shortlisted_listings sl
+                JOIN service_listings s ON sl.listing_id = s.id
+                JOIN users u ON s.user_id = u.user_id
+                WHERE sl.user_id = %s AND s.service_name LIKE %s 
+                ORDER BY sl.create_date DESC
+            """
+            self.cursor.execute(sql, (user_id, f"%{query}%",))
+        else:
+            sql = """
+                SELECT s.id, s.service_name, s.price, s.type, s.description, s.total_views,
+                    u.first_name, u.last_name, u.email, sl.create_date as shortlisted_date
+                FROM shortlisted_listings sl
+                JOIN service_listings s ON sl.listing_id = s.id
+                JOIN users u ON s.user_id = u.user_id
+                WHERE sl.user_id = %s
+                ORDER BY sl.create_date DESC
+            """ 
+            self.cursor.execute(sql, (user_id,))
         return self.cursor.fetchall()
 
     def is_shortlisted(self, user_id, listing_id):
@@ -44,4 +55,3 @@ class HomeownerShortlist:
             (user_id, listing_id)
         )
         self.conn.commit()
-      
