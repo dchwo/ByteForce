@@ -4,6 +4,6 @@ class ViewShortlistedListingsController:
     def __init__(self):
         self.homeownerShortlist = HomeownerShortlist()
     
-    def getShortlistedListings(self, user_id):
+    def getShortlistedListings(self, user_id, query=None):
         """Get all shortlisted listings for a homeowner"""
-        return self.homeownerShortlist.get_shortlisted_listings(user_id)
+        return self.homeownerShortlist.get_shortlisted_listings(user_id, query)
