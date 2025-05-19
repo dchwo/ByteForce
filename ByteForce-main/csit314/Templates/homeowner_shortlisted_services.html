@@ -5,23 +5,23 @@
 {% block header %}My Shortlisted Services{% endblock %}
 
 {% block content %}
-    <!--
-    <div class="action-buttons">
-        <a href="{{ url_for('searchListingPage.searchListing') }}">
-            <button type="button">Browse More Services</button>
-        </a>
-    </div>
-    -->
-    <p>&nbsp;</p>
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-        <div>
-            &nbsp;
-        </div>
-        <div>
-            <a href="{{ url_for('searchListingPage.searchListing') }}">Show All Services</a>
-        </div>
-    </div>    
-    
+
+    <form method="GET" action="{{ url_for('viewShortlistedListingsPage.viewShortlistedListings') }}">
+        <input type="text" name="search" placeholder="Search service" value="{{ request.args.get('search', '') }}">
+
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <button type="submit">Search</button>
+                <a href="{{ url_for('viewShortlistedListingsPage.viewShortlistedListings') }}">
+                    <button type="button">Reset</button>
+                </a>
+            </div>
+            <div>
+                <a href="{{ url_for('searchListingPage.searchListing') }}">Show All Services</a>
+            </div>            
+        </div>        
+    </form>
+
     {% if services|length == 0 %}
         <p>You haven't shortlisted any services yet. <a href="{{ url_for('searchListingPage.searchListing') }}">Browse services</a> to find and shortlist services you're interested in.</p>
     {% else %}
