@@ -1,0 +1,31 @@
+import unittest
+
+from csit314.entity.userAccount import UserAccount
+from csit314 import create_app
+
+class TestCaseSprint1(unittest.TestCase):
+    
+    def setUp(self):
+        self.app = create_app().test_client()
+
+    def test_admin_success_login(self):
+        userAccount = UserAccount().getUser('admin1@cc.com','password','admin')
+
+        # must not return None
+        self.assertIsNotNone(userAccount)
+        # the return record's email is correct
+        self.assertEqual(userAccount['email'], 'admin1@cc.com')
+        # the return record's role is correct
+        self.assertEqual(userAccount['role'], 'admin')
+        
+    def test_admin_logout(self):
+        # Trigger a logout
+        response = self.app.get('/user_logout')
+
+        # Check if the response is a redirect for successful logout
+        self.assertEqual(response.status_code, 302) 
+        # Check if the redirect location is back to login page
+        self.assertIn('/user_login', response.headers['Location']) 
+    
+if __name__ == '__main__':
+    unittest.main(verbosity=2)
